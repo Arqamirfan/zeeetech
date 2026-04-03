@@ -1,0 +1,533 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+  <title>Zeetech | Home - Powering Comfort, Repairing Trust</title>
+  
+  <!-- ============================================ -->
+  <!-- TAB LOGO / FAVICON - FIXED -->
+  <!-- ============================================ -->
+  <link rel="icon" type="image/png" href="images/zeetech-lago-logo.png">
+  <link rel="icon" type="image/jpeg" href="images/zeetech-lago.jpeg">
+  <link rel="apple-touch-icon" href="images/zeetech-lago-logo.png">
+  
+  <!-- Google Fonts: Poppins for body text -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+  
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <!-- Swiper CSS -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+  <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+  
+  <style>
+    /* ============================================ */
+    /* GOOD TIMES RG FONT */
+    /* ============================================ */
+    
+    @font-face {
+      font-family: 'Good Times Rg';
+      src: url('fonts/Good Times Rg.otf') format('opentype'),
+           url('fonts/good times rg.ttf') format('truetype');
+      font-weight: normal;
+      font-style: normal;
+      font-display: swap;
+    }
+    
+    .good-times, 
+    h1, 
+    h2, 
+    h3, 
+    .zeetech-brand,
+    .nav-link {
+      font-family: 'Good Times Rg', 'Poppins', 'Segoe UI', sans-serif;
+      letter-spacing: 1px;
+    }
+    
+    body, p, span, div, a, button, input, textarea {
+      font-family: 'Poppins', sans-serif;
+    }
+    
+    /* Color Scheme */
+    .bg-zeetech { background-color: #0c5ca8; }
+    .text-zeetech { color: #0c5ca8; }
+    .border-zeetech { border-color: #0c5ca8; }
+    .btn-zeetech { background-color: #0c5ca8; transition: all 0.2s ease; }
+    .btn-zeetech:hover { background-color: #094a86; transform: translateY(-2px); }
+    
+    /* WhatsApp Float */
+    .whatsapp-float { 
+      position: fixed; bottom: 28px; right: 28px; z-index: 999; 
+      background-color: #25D366; border-radius: 50%; padding: 14px; 
+      box-shadow: 0 6px 16px rgba(0,0,0,0.2); transition: transform 0.2s; 
+    }
+    .whatsapp-float:hover { transform: scale(1.08); }
+    
+    /* Location Float */
+    .location-float {
+      position: fixed;
+      bottom: 108px;
+      right: 28px;
+      z-index: 999;
+      background-color: #0c5ca8;
+      border-radius: 50%;
+      padding: 14px;
+      box-shadow: 0 6px 16px rgba(0,0,0,0.2);
+      transition: transform 0.2s;
+      cursor: pointer;
+    }
+    .location-float:hover {
+      transform: scale(1.08);
+      background-color: #094a86;
+    }
+    
+    /* Logo Styles */
+    .logo-img {
+      width: 44px;
+      height: 44px;
+      object-fit: contain;
+      border-radius: 50%;
+      background-color: #0c5ca8;
+      padding: 4px;
+    }
+    
+    .footer-logo-img {
+      width: 40px;
+      height: 40px;
+      object-fit: contain;
+      border-radius: 50%;
+      background-color: #0c5ca8;
+      padding: 4px;
+    }
+    
+    .active-nav { 
+      border-bottom: 2px solid #0c5ca8; 
+      color: #0c5ca8; 
+      font-weight: 600; 
+    }
+    
+    .swiper-slide img { width: 100%; height: 100%; object-fit: cover; }
+    .swiper-pagination-bullet-active { background-color: #0c5ca8 !important; }
+    
+    /* Feedback Widget */
+    .feedback-widget {
+      position: fixed;
+      bottom: 28px;
+      left: 28px;
+      z-index: 999;
+    }
+    .feedback-btn {
+      background-color: #0c5ca8;
+      border-radius: 50%;
+      width: 56px;
+      height: 56px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      box-shadow: 0 6px 16px rgba(0,0,0,0.2);
+      transition: all 0.3s ease;
+    }
+    .feedback-btn:hover {
+      transform: scale(1.08);
+      background-color: #094a86;
+    }
+    .feedback-panel {
+      position: absolute;
+      bottom: 70px;
+      left: 0;
+      width: 320px;
+      background: white;
+      border-radius: 20px;
+      box-shadow: 0 20px 35px -10px rgba(0,0,0,0.25);
+      overflow: hidden;
+      transition: all 0.3s ease;
+      transform: translateY(20px);
+      opacity: 0;
+      visibility: hidden;
+    }
+    .feedback-panel.active {
+      transform: translateY(0);
+      opacity: 1;
+      visibility: visible;
+    }
+    .star-rating {
+      display: flex;
+      gap: 8px;
+      justify-content: center;
+      direction: rtl;
+    }
+    .star-rating input { display: none; }
+    .star-rating label {
+      font-size: 28px;
+      color: #ddd;
+      cursor: pointer;
+      transition: color 0.2s;
+    }
+    .star-rating input:checked ~ label,
+    .star-rating label:hover,
+    .star-rating label:hover ~ label {
+      color: #ffc107;
+    }
+    .feedback-whatsapp-btn {
+      background-color: #25D366;
+      transition: all 0.2s;
+    }
+    .feedback-whatsapp-btn:hover {
+      background-color: #075e54;
+      transform: translateY(-2px);
+    }
+    
+    .value-card { transition: all 0.3s ease; }
+    .value-card:hover { transform: translateY(-5px); box-shadow: 0 10px 25px -5px rgba(0,0,0,0.1); }
+    
+    .social-icon {
+      transition: all 0.3s ease;
+    }
+    .social-icon:hover {
+      transform: translateY(-3px);
+    }
+    .footer-link {
+      transition: all 0.3s ease;
+      display: inline-flex;
+      align-items: center;
+    }
+  </style>
+</head>
+<body class="bg-gray-50">
+
+  <!-- LOCATION BUTTON -->
+  <div class="location-float flex items-center justify-center" id="locationBtn">
+    <i class="fas fa-map-marker-alt text-white text-2xl"></i>
+  </div>
+
+  <!-- WHATSAPP BUTTON -->
+  <a href="https://wa.me/923005518622?text=Hello%20Zeetech%2C%20I%20need%20assistance" target="_blank" class="whatsapp-float flex items-center justify-center">
+    <i class="fab fa-whatsapp text-white text-3xl"></i>
+  </a>
+
+  <!-- FEEDBACK WIDGET -->
+  <div class="feedback-widget">
+    <div class="feedback-btn" id="feedbackBtn">
+      <i class="fas fa-comment-dots text-white text-2xl"></i>
+    </div>
+    <div class="feedback-panel" id="feedbackPanel">
+      <div class="bg-gradient-to-r from-zeetech to-blue-700 px-5 py-3">
+        <h3 class="text-white font-bold text-lg good-times">Share Your Feedback</h3>
+        <p class="text-blue-100 text-xs">We value your opinion!</p>
+      </div>
+      <div class="p-5">
+        <div class="mb-4 text-center">
+          <label class="block text-gray-700 text-sm font-semibold mb-2">Rate your experience</label>
+          <div class="star-rating">
+            <input type="radio" id="star5" name="rating" value="5"><label for="star5" class="fas fa-star"></label>
+            <input type="radio" id="star4" name="rating" value="4"><label for="star4" class="fas fa-star"></label>
+            <input type="radio" id="star3" name="rating" value="3"><label for="star3" class="fas fa-star"></label>
+            <input type="radio" id="star2" name="rating" value="2"><label for="star2" class="fas fa-star"></label>
+            <input type="radio" id="star1" name="rating" value="1"><label for="star1" class="fas fa-star"></label>
+          </div>
+        </div>
+        <div class="mb-4">
+          <textarea id="feedbackMsg" rows="3" placeholder="Write your feedback here..." class="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-zeetech"></textarea>
+        </div>
+        <button id="submitFeedbackWhatsApp" class="feedback-whatsapp-btn w-full text-white py-2.5 rounded-lg text-sm font-semibold flex items-center justify-center gap-2">
+          <i class="fab fa-whatsapp"></i> Send Feedback via WhatsApp
+        </button>
+        <div class="mt-3 text-center">
+          <button id="closeFeedback" class="text-gray-400 text-xs hover:text-gray-600">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- HEADER -->
+  <header class="bg-white shadow-md sticky top-0 z-50">
+    <div class="container mx-auto px-5 md:px-8 py-3 flex flex-wrap items-center justify-between">
+      <a href="index.html" class="flex items-center space-x-3 group">
+        <img id="siteLogo" src="images/zeetech-lago.jpeg" alt="Zeetech Logo" class="logo-img transition-transform group-hover:scale-105">
+        <div class="flex flex-col leading-tight">
+          <span class="font-black text-xl tracking-wide text-gray-800 good-times">ZEETECH</span>
+          <span class="text-[11px] text-gray-500 -mt-1">Technical Services</span>
+        </div>
+      </a>
+      <nav class="hidden md:flex space-x-8 text-gray-700 font-medium">
+        <a href="index.html" class="nav-link hover:text-zeetech transition active-nav good-times">Home</a>
+        <a href="services.html" class="nav-link hover:text-zeetech transition good-times">Services</a>
+        <a href="about.html" class="nav-link hover:text-zeetech transition good-times">About Us</a>
+        <a href="contact.html" class="nav-link hover:text-zeetech transition good-times">Contact</a>
+      </nav>
+      <button id="mobileMenuBtn" class="md:hidden text-gray-600 text-2xl"><i class="fas fa-bars"></i></button>
+    </div>
+    <div id="mobileMenu" class="hidden md:hidden bg-white border-t px-5 py-3 flex flex-col space-y-3 shadow-lg">
+      <a href="index.html" class="py-1 hover:text-zeetech font-medium good-times">Home</a>
+      <a href="services.html" class="py-1 hover:text-zeetech good-times">Services</a>
+      <a href="about.html" class="py-1 hover:text-zeetech good-times">About Us</a>
+      <a href="contact.html" class="py-1 hover:text-zeetech good-times">Contact</a>
+    </div>
+  </header>
+
+  <main class="min-h-screen py-6 px-4 md:px-8 container mx-auto">
+    
+    <!-- SLIDESHOW -->
+    <div class="mb-12 rounded-2xl overflow-hidden shadow-xl">
+      <div class="swiper w-full h-56 sm:h-72 md:h-96">
+        <div class="swiper-wrapper">
+          <div class="swiper-slide"><img src="D:/zeetech/images/electrical-banner.png" alt="AC Services" class="w-full h-full object-cover"></div>
+          <div class="swiper-slide"><img src="D:/zeetech/images/solar-banner.png" alt="Fridge Repair" class="w-full h-full object-cover"></div>
+          <div class="swiper-slide"><img src="D:/zeetech/images/penter-banner.png" alt="Solar Solutions" class="w-full h-full object-cover"></div>
+          <div class="swiper-slide"><img src="D:/zeetech/images/fridge-banner.png" alt="Inverter Services" class="w-full h-full object-cover"></div>
+          <div class="swiper-slide"><img src="D:/zeetech/images/ac-banner.png" alt="Maintenance" class="w-full h-full object-cover"></div>
+        </div>
+        <div class="swiper-pagination"></div>
+      </div>
+    </div>
+
+    <!-- HERO SECTION -->
+    <div class="bg-gradient-to-r from-blue-50 to-white rounded-3xl p-6 md:p-10 shadow-sm mb-12">
+      <div class="max-w-3xl">
+        <h1 class="text-3xl md:text-5xl font-extrabold text-gray-800 good-times">ZEETECH <span class="text-zeetech">Technical Services</span></h1>
+        <p class="text-gray-600 text-base md:text-lg mt-4">Reliable, efficient & affordable home & commercial technical solutions — Installation, Maintenance, Repair under one trusted brand.</p>
+        <div class="flex flex-wrap gap-4 mt-6 md:mt-8">
+          <a href="services.html" class="bg-zeetech text-white px-6 py-3 rounded-xl font-semibold shadow-md hover:shadow-lg transition">Explore Services →</a>
+          <a href="contact.html" class="border border-zeetech text-zeetech px-6 py-3 rounded-xl font-semibold hover:bg-zeetech hover:text-white transition">Contact Us</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- VALUES SECTION -->
+    <div class="grid md:grid-cols-3 gap-6 mt-8">
+      <div class="bg-white p-6 rounded-2xl shadow-sm text-center border-l-4 border-zeetech value-card">
+        <i class="fas fa-handshake text-4xl text-zeetech mb-3"></i>
+        <h3 class="font-bold text-xl good-times">Reliability</h3>
+        <p class="text-gray-500">Services customers can trust, every time.</p>
+      </div>
+      <div class="bg-white p-6 rounded-2xl shadow-sm text-center border-l-4 border-zeetech value-card">
+        <i class="fas fa-tools text-4xl text-zeetech mb-3"></i>
+        <h3 class="font-bold text-xl good-times">Quality Workmanship</h3>
+        <p class="text-gray-500">Skilled technicians with attention to detail.</p>
+      </div>
+      <div class="bg-white p-6 rounded-2xl shadow-sm text-center border-l-4 border-zeetech value-card">
+        <i class="fas fa-smile text-4xl text-zeetech mb-3"></i>
+        <h3 class="font-bold text-xl good-times">Customer Satisfaction</h3>
+        <p class="text-gray-500">Long-term relationships & dependable service.</p>
+      </div>
+    </div>
+
+    <!-- MISSION & VISION -->
+    <div class="mt-16 grid md:grid-cols-2 gap-8 bg-gray-50 p-6 md:p-8 rounded-2xl">
+      <div>
+        <i class="fas fa-bullseye text-3xl text-zeetech mb-3"></i>
+        <h2 class="text-2xl font-bold good-times">Our Mission</h2>
+        <p class="mt-2 text-gray-600">To provide dependable technical services that improve everyday living through quality workmanship, reliable service, and professional expertise.</p>
+      </div>
+      <div>
+        <i class="fas fa-eye text-3xl text-zeetech mb-3"></i>
+        <h2 class="text-2xl font-bold good-times">Our Vision</h2>
+        <p class="mt-2 text-gray-600">To become a trusted leading technical services provider delivering complete home & commercial solutions with excellence and integrity.</p>
+      </div>
+    </div>
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="bg-gray-900 text-white mt-16">
+    <div class="container mx-auto px-5 py-12">
+      <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+        
+        <!-- Column 1: Brand Info -->
+        <div class="space-y-4">
+          <div class="flex items-center space-x-3">
+            <img id="footerLogo" src="images/zeetech-lago.jpeg" alt="Zeetech Logo" class="footer-logo-img">
+            <div>
+              <div class="font-bold text-xl tracking-wide good-times">ZEETECH</div>
+              <div class="text-xs text-gray-400">Technical Services</div>
+            </div>
+          </div>
+          <p class="text-gray-400 text-sm leading-relaxed">
+            Professional home and commercial technical service provider committed to delivering reliable, efficient, and affordable solutions.
+          </p>
+          <div class="flex space-x-4 pt-2">
+            <a href="https://www.facebook.com/share/1BS7AHHSx5/" target="_blank" class="social-icon w-9 h-9 bg-gray-800 rounded-full flex items-center justify-center hover:bg-[#1877f2] transition-all duration-300">
+              <i class="fab fa-facebook-f text-gray-400 hover:text-white text-sm"></i>
+            </a>
+            <a href="https://www.instagram.com/zeetech.26?igsh=YTQ3bDJoczl1cmZ0" target="_blank" class="social-icon w-9 h-9 bg-gray-800 rounded-full flex items-center justify-center hover:bg-gradient-to-tr hover:from-[#f77737] hover:to-[#e1306c] transition-all duration-300">
+              <i class="fab fa-instagram text-gray-400 hover:text-white text-sm"></i>
+            </a>
+            <a href="https://www.tiktok.com/@zeetech26?_r=1&_t=ZS-95EIV49D8AT" target="_blank" class="social-icon w-9 h-9 bg-gray-800 rounded-full flex items-center justify-center hover:bg-black transition-all duration-300">
+              <i class="fab fa-tiktok text-gray-400 hover:text-white text-sm"></i>
+            </a>
+            <a href="https://wa.me/923005518622?text=Hello%20Zeetech" target="_blank" class="social-icon w-9 h-9 bg-gray-800 rounded-full flex items-center justify-center hover:bg-[#25D366] transition-all duration-300">
+              <i class="fab fa-whatsapp text-gray-400 hover:text-white text-sm"></i>
+            </a>
+          </div>
+        </div>
+        
+        <!-- Column 2: Quick Links -->
+        <div>
+          <h3 class="text-lg font-semibold mb-4 relative inline-block good-times">
+            Quick Links
+            <span class="absolute -bottom-2 left-0 w-10 h-0.5 bg-zeetech rounded-full"></span>
+          </h3>
+          <ul class="space-y-2">
+            <li><a href="index.html" class="footer-link text-gray-400 hover:text-zeetech text-sm transition flex items-center gap-2"><i class="fas fa-chevron-right text-zeetech text-xs"></i> Home</a></li>
+            <li><a href="services.html" class="footer-link text-gray-400 hover:text-zeetech text-sm transition flex items-center gap-2"><i class="fas fa-chevron-right text-zeetech text-xs"></i> Services</a></li>
+            <li><a href="about.html" class="footer-link text-gray-400 hover:text-zeetech text-sm transition flex items-center gap-2"><i class="fas fa-chevron-right text-zeetech text-xs"></i> About Us</a></li>
+            <li><a href="contact.html" class="footer-link text-gray-400 hover:text-zeetech text-sm transition flex items-center gap-2"><i class="fas fa-chevron-right text-zeetech text-xs"></i> Contact Us</a></li>
+          </ul>
+        </div>
+        
+        <!-- Column 3: Our Services -->
+        <div>
+          <h3 class="text-lg font-semibold mb-4 relative inline-block good-times">
+            Our Services
+            <span class="absolute -bottom-2 left-0 w-10 h-0.5 bg-zeetech rounded-full"></span>
+          </h3>
+          <ul class="space-y-2">
+            <li><a href="services.html" class="footer-link text-gray-400 hover:text-zeetech text-sm transition flex items-center gap-2"><i class="fas fa-wind text-zeetech text-xs"></i> Air Conditioner</a></li>
+            <li><a href="services.html" class="footer-link text-gray-400 hover:text-zeetech text-sm transition flex items-center gap-2"><i class="fas fa-thermometer-half text-zeetech text-xs"></i> Refrigerator</a></li>
+            <li><a href="services.html" class="footer-link text-gray-400 hover:text-zeetech text-sm transition flex items-center gap-2"><i class="fas fa-solar-panel text-zeetech text-xs"></i> Solar Energy</a></li>
+            <li><a href="services.html" class="footer-link text-gray-400 hover:text-zeetech text-sm transition flex items-center gap-2"><i class="fas fa-battery-full text-zeetech text-xs"></i> Inverter Services</a></li>
+            <li><a href="services.html" class="footer-link text-gray-400 hover:text-zeetech text-sm transition flex items-center gap-2"><i class="fas fa-hammer text-zeetech text-xs"></i> Carpenter</a></li>
+            <li><a href="services.html" class="footer-link text-gray-400 hover:text-zeetech text-sm transition flex items-center gap-2"><i class="fas fa-bolt text-zeetech text-xs"></i> General Electrician</a></li>
+          </ul>
+        </div>
+        
+        <!-- Column 4: Contact Info -->
+        <div>
+          <h3 class="text-lg font-semibold mb-4 relative inline-block good-times">
+            Contact Info
+            <span class="absolute -bottom-2 left-0 w-10 h-0.5 bg-zeetech rounded-full"></span>
+          </h3>
+          <ul class="space-y-3">
+            <li>
+              <a href="https://wa.me/923005518622?text=Hello%20Zeetech" target="_blank" class="flex items-center gap-3 text-gray-400 hover:text-[#25D366] transition group">
+                <div class="w-8 h-8 bg-gray-800 rounded-full flex items-center justify-center group-hover:bg-[#25D366] transition">
+                  <i class="fab fa-whatsapp text-sm"></i>
+                </div>
+                <span class="text-sm">+92 300 5518622</span>
+              </a>
+            </li>
+            <li>
+              <a href="mailto:info.zeetech26@gmail.com?subject=Inquiry%20from%20Website" class="flex items-center gap-3 text-gray-400 hover:text-red-500 transition group">
+                <div class="w-8 h-8 bg-gray-800 rounded-full flex items-center justify-center group-hover:bg-red-500 transition">
+                  <i class="fas fa-envelope text-sm"></i>
+                </div>
+                <span class="text-sm">info.zeetech26@gmail.com</span>
+              </a>
+            </li>
+            <li>
+              <a href="tel:+923005518622" class="flex items-center gap-3 text-gray-400 hover:text-zeetech transition group">
+                <div class="w-8 h-8 bg-gray-800 rounded-full flex items-center justify-center group-hover:bg-zeetech transition">
+                  <i class="fas fa-phone-alt text-sm"></i>
+                </div>
+                <span class="text-sm">+92 300 5518622</span>
+              </a>
+            </li>
+            <li class="flex items-center gap-3 text-gray-400">
+              <div class="w-8 h-8 bg-gray-800 rounded-full flex items-center justify-center">
+                <i class="fas fa-map-marker-alt text-sm text-zeetech"></i>
+              </div>
+              <span class="text-sm">G-12 Ghazali Road,Islamabad</span>
+            </li>
+          </ul>
+        </div>
+      </div>
+      
+      <div class="border-t border-gray-800 my-8"></div>
+      
+      <div class="flex flex-col md:flex-row justify-between items-center gap-4">
+        <div class="text-gray-500 text-xs">© 2025 Zeetech Technical Services. All rights reserved.</div>
+        <div class="flex gap-6">
+          <a href="#" class="text-gray-500 hover:text-zeetech text-xs transition">Privacy Policy</a>
+          <a href="#" class="text-gray-500 hover:text-zeetech text-xs transition">Terms & Conditions</a>
+          <a href="#" class="text-gray-500 hover:text-zeetech text-xs transition">Support</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // LOCATION FUNCTION
+    function openLocation() {
+      const lat = 33.6598056;
+      const lng = 72.9891944;
+      window.open(`https://www.google.com/maps?q=${lat},${lng}&z=15`, '_blank');
+    }
+    document.getElementById('locationBtn').addEventListener('click', openLocation);
+    
+    // LOGO PATHS - Change these to your logo paths
+    const HEADER_LOGO = "images/zeetech-lago.jpeg";
+    const FOOTER_LOGO = "images/zeetech-lago.jpeg";
+    
+    // Apply logos
+    const siteLogo = document.getElementById('siteLogo');
+    const footerLogo = document.getElementById('footerLogo');
+    if (siteLogo) siteLogo.src = HEADER_LOGO;
+    if (footerLogo) footerLogo.src = FOOTER_LOGO;
+    
+    // SWIPER
+    new Swiper('.swiper', { 
+      loop: true, 
+      autoplay: { delay: 3500, disableOnInteraction: false }, 
+      pagination: { el: '.swiper-pagination', clickable: true }, 
+      speed: 800 
+    });
+    
+    // MOBILE MENU
+    const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+    const mobileMenu = document.getElementById('mobileMenu');
+    if (mobileMenuBtn) {
+      mobileMenuBtn.onclick = () => mobileMenu.classList.toggle('hidden');
+    }
+    document.querySelectorAll('#mobileMenu a').forEach(link => {
+      link.addEventListener('click', () => mobileMenu.classList.add('hidden'));
+    });
+    
+    // FEEDBACK WIDGET
+    const feedbackBtn = document.getElementById('feedbackBtn');
+    const feedbackPanel = document.getElementById('feedbackPanel');
+    const closeFeedback = document.getElementById('closeFeedback');
+    
+    if (feedbackBtn && feedbackPanel) {
+      feedbackBtn.addEventListener('click', (e) => { 
+        e.stopPropagation(); 
+        feedbackPanel.classList.toggle('active'); 
+      });
+      if (closeFeedback) {
+        closeFeedback.addEventListener('click', () => feedbackPanel.classList.remove('active'));
+      }
+      document.addEventListener('click', (e) => { 
+        if (!feedbackPanel.contains(e.target) && !feedbackBtn.contains(e.target)) 
+          feedbackPanel.classList.remove('active'); 
+      });
+    }
+    
+    function getSelectedRating() {
+      const ratings = document.querySelectorAll('input[name="rating"]');
+      for (let r of ratings) if (r.checked) return r.value;
+      return null;
+    }
+    
+    const submitBtn = document.getElementById('submitFeedbackWhatsApp');
+    if (submitBtn) {
+      submitBtn.addEventListener('click', () => {
+        const rating = getSelectedRating();
+        const message = document.getElementById('feedbackMsg').value.trim();
+        if (!rating && !message) {
+          alert('Please provide a rating or write a feedback message.');
+          return;
+        }
+        let stars = rating ? `Rating: ${rating}/5 ${'⭐'.repeat(parseInt(rating))}\n` : '';
+        const feedbackText = `📝 *ZEETECH CUSTOMER FEEDBACK* 📝%0A%0A${stars}${message ? `💬 Feedback: ${message}` : ''}`;
+        window.open(`https://wa.me/923005518622?text=${encodeURIComponent(feedbackText)}`, '_blank');
+        document.querySelectorAll('input[name="rating"]').forEach(r => r.checked = false);
+        document.getElementById('feedbackMsg').value = '';
+        if (feedbackPanel) feedbackPanel.classList.remove('active');
+        alert('Thank you for your feedback!');
+      });
+    }
+  </script>
+</body>
+</html>
